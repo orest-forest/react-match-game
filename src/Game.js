@@ -52,9 +52,10 @@ export default class Game extends Component {
     };
 
     componentDidUpdate =  () => {
+        setTimeout(() => {
         if (this.state.matches === 0) {
             if (this.state.playerCount % 2 === 0) {
-                alert('player win');
+                alert('Вы победили');
                 this.setState({
                     matches: +this.props.data.countOfMatches,
                     playerCount: 0,
@@ -62,7 +63,7 @@ export default class Game extends Component {
                     gameEnd: true
                 });
             } else if (this.state.botCount % 2 === 0) {
-                alert('robot win');
+                alert('Вы проиграли');
                 this.setState({
                     matches: +this.props.data.countOfMatches,
                     playerCount: 0,
@@ -70,7 +71,7 @@ export default class Game extends Component {
                     gameEnd: true
                 });
             }
-        }
+        }}, 200)
     };
 
 
