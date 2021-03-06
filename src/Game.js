@@ -9,7 +9,6 @@ export default class Game extends Component {
         playerCount: 0,
         botCount: 0,
         gameEnd: false,
-        rainbowList: [],
         settings: this.props.data.settings,
         botTurn: false,
     };
@@ -20,16 +19,17 @@ export default class Game extends Component {
             playerCount: +this.state.playerCount + +event.target.value,
             gameEnd: false
         });
-        if (this.state.gameEnd === false) {
-            this.botAi()
-        }
-    };
-
-    botAi = () => {
         this.setState({
             botTurn: true,
         })
         setTimeout(() => {
+        if (this.state.gameEnd === false) {
+            this.botAi()
+        }},300)
+    };
+
+    botAi = () => {
+
             if (this.state.matches <= this.state.matchesToTake.length) {
                 let i = Math.floor(Math.random() * (this.state.matches - 1) + 1);
                 this.setState({
@@ -45,29 +45,32 @@ export default class Game extends Component {
                     botCount: +this.state.botCount + i,
                 });
             }
-        }, 200)
+
     };
 
     componentDidUpdate = () => {
+        setTimeout(() => {
             if (this.state.matches === 0) {
                 if (this.state.playerCount % 2 === 0) {
-                    alert('Вы победили');
+                    alert('Вы победили!');
                     this.setState({
                         matches: +this.props.data.countOfMatches,
                         playerCount: 0,
                         botCount: 0,
-                        gameEnd: true
+                        gameEnd: true,
+                        botTurn: false,
                     });
                 } else if (this.state.botCount % 2 === 0) {
-                    alert('Вы проиграли');
+                    alert('Вы проиграли.');
                     this.setState({
                         matches: +this.props.data.countOfMatches,
                         playerCount: 0,
                         botCount: 0,
-                        gameEnd: true
+                        gameEnd: true,
+                        botTurn: false,
                     });
                 }
-            }
+            }}, 200)
     };
 
 
